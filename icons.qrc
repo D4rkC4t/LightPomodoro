@@ -1,0 +1,8 @@
+<RCC>
+  <qresource>
+    <file>Ressources/idle.png</file>
+    <file>Ressources/working.png</file>
+    <file>Ressources/pause.png</file>
+    <file>Ressources/ok.png</file>
+  </qresource>
+</RCC>
