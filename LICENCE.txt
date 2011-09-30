@@ -1,0 +1,10 @@
+Note
+===========
+
+les image png appartiennent au projet http://gitorious.org/tomate/tomate
+
+Licence
+===========
+
+GPL
+
