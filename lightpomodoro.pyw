@@ -6,8 +6,11 @@
 LightPomodoro - petit applet en pyqt4
 avec 25 minutes de travail suivi de 5 minutes de break
 
+@todo : desktop message
+@todo : indiquer durée restante du pomodoro
+
 Usage Console: 
-python -u "lightpomodoro.pyw"
+python -u "/home/XXXX/dev/projects/lightpomodoro/lightpomodoro.pyw"
 
 Usage Kde:
     Menu KDE
