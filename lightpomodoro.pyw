@@ -6,30 +6,8 @@
 LightPomodoro - petit applet en pyqt4
 avec 25 minutes de travail suivi de 5 minutes de break
 
-@todo : desktop message
-@todo : indiquer durée restante du pomodoro , cf self.stringTempRestant
+usage : lire fichier README.rst
 
-Usage Console: 
-python -u "/home/XXXX/dev/projects/lightpomodoro/lightpomodoro.pyw"
-
-Usage Kde:
-    Menu KDE
-        > Configuration du Système 
-        > Démarrage & Arrêt 
-        > Démarrage Automatique 
-        > Ajouter un programme 
-            python -u "/home/XXXX/dev/projects/lightpomodoro/lightpomodoro.pyw"
-        > Ok
-
-Usage Gnome:
-    Menu Gnome
-        > System
-        > Preference
-        > Startup Applications
-        > Add
-            python -u "/home/XXXX/dev/projects/lightpomodoro/lightpomodoro.pyw"
-        > Ok
-        
 """
 
 __author__ = "Alban Minassian"
