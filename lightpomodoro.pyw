@@ -63,15 +63,15 @@ class LightPomodoroSystray(QtGui.QWidget):
     END_WORK = 3
     END_BREAK = 4
     
-    #~ # interval pomodoro
-    INTERVAL_WORK = 25 * 60 * 1000 # 25 minutes
-    INTERVAL_BREAK_SHORT = 5 * 60 * 1000 # 5 minutes
-    INTERVAL_BREAK_LONG = 15 * 60 * 1000 # 15 minutes
+    # interval pomodoro
+    #~ INTERVAL_WORK = 25 * 60 * 1000 # 25 minutes
+    #~ INTERVAL_BREAK_SHORT = 5 * 60 * 1000 # 5 minutes
+    #~ INTERVAL_BREAK_LONG = 15 * 60 * 1000 # 15 minutes
 
-    # durée Test :
-    #~ INTERVAL_WORK = 2 * 1000 # 2 secondes
-    #~ INTERVAL_BREAK_SHORT = 2 * 1000 # 2 secondes
-    #~ INTERVAL_BREAK_LONG = 5 * 1000 # 5 secondes
+    #~ # durée Test :
+    INTERVAL_WORK = 2 * 1000 # 2 secondes
+    INTERVAL_BREAK_SHORT = 2 * 1000 # 2 secondes
+    INTERVAL_BREAK_LONG = 5 * 1000 # 5 secondes
     
     # Compter le nombre de break
     # au bout de X break court alors réaliser un break long
@@ -224,8 +224,9 @@ class LightPomodoroSystray(QtGui.QWidget):
         self.timerPomodoroWork.start(self.tempsRestant) ;# appelle fncEndWork() après ces 25 minutes de travail
         
         # activer l'action pause et désactiver l'action start
-        self.actionPause.setEnabled(True);
-        self.actionStart.setEnabled(False);
+        self.actionStart.setEnabled(False)
+        self.actionPause.setEnabled(True)
+        self.actionStop.setEnabled(True)
         
         # affichage
         self.trayIcon.setIcon(self.iconStart)
@@ -246,9 +247,9 @@ class LightPomodoroSystray(QtGui.QWidget):
         if self.tempsRestant < 0 : self.tempsRestant = 0; 
         
         # désactiver l'action pause et activer l'action start
-        self.actionPause.setEnabled(False);
-        self.actionStart.setEnabled(True);
-        
+        self.actionStart.setEnabled(True)
+        self.actionPause.setEnabled(False)
+        self.actionStop.setEnabled(True)
         
         # affichage
         self.trayIcon.setIcon(self.iconPause)
@@ -266,8 +267,9 @@ class LightPomodoroSystray(QtGui.QWidget):
         self.timerPomodoroBreak.stop()
         
         # désactiver l'action pause, activer Start
-        self.actionStart.setEnabled(True);
-        self.actionPause.setEnabled(False);
+        self.actionStart.setEnabled(True)
+        self.actionPause.setEnabled(False)
+        self.actionStop.setEnabled(False)
         
         # affichage
         self.trayIcon.setIcon(self.iconStop)

@@ -2,5 +2,16 @@
 [ ] bug about qui ferme application
 [ ] bug dialog qui ferme application
 [ ] bug confirm quit qui ferme application
+[ ] tester sous windows
+[ ] tester présence PyQt
+[ ] tester présence notify-send si Linux
+[ ] afficher durée restante
+[ ] afficher nombre de pomodoro 
+[ ] start nerver stop
+[ ] start 1[default]2/3/4/5 ... pomodoro
+[ ] configurer dans le menu le nombre de pomodoro avant long break [widget radio]
+[ ] si pause, renommer action 'Start' en 'Continue'
+[ ] traduction
 
 [x] utiliser en plus libnotify si linux
+
