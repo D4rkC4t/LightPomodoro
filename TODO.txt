@@ -1,0 +1,3 @@
+- utiliser libnotify 
+- confirmer quitter
+- bug about
