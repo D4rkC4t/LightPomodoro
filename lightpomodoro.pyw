@@ -7,7 +7,7 @@ LightPomodoro - petit applet en pyqt4
 avec 25 minutes de travail suivi de 5 minutes de break
 
 @todo : desktop message
-@todo : indiquer durée restante du pomodoro
+@todo : indiquer durée restante du pomodoro , cf self.stringTempRestant
 
 Usage Console: 
 python -u "/home/XXXX/dev/projects/lightpomodoro/lightpomodoro.pyw"
@@ -32,12 +32,12 @@ Usage Gnome:
         
 """
 
-__author__ = "Alban Minassian (alban.minassian@free.fr)"
+__author__ = "Alban Minassian"
 __copyright__ = "Copyright (c) 2011, Alban Minassian"
 __date__ = "2011/09/30"
 __version__ = "0.1"
 
-import sys, os
+import sys, os, platform
 from PyQt4 import QtCore, QtGui
 import icons_rc # pyrcc4 icons.qrc -o icons_rc.py
 
@@ -49,7 +49,7 @@ class LightPomodoroDialog( QtGui.QDialog ):
         super(LightPomodoroDialog, self).__init__(parent)
         
         self.setWindowIcon(QtGui.QIcon(':/Ressources/working.png'))
-        self.setWindowTitle("LightPomodoro");
+        self.setWindowTitle("LightPomodoro")
 
 class LightPomodoroSystray(QtGui.QWidget):
     """
@@ -63,20 +63,20 @@ class LightPomodoroSystray(QtGui.QWidget):
     END_WORK = 3
     END_BREAK = 4
     
-    # interval pomodoro
-    INTERVAL_WORK = 25 * 60 * 1000 # 25 minutes
-    INTERVAL_BREAK_SHORT = 5 * 60 * 1000 # 5 minutes
-    INTERVAL_BREAK_LONG = 15 * 60 * 1000 # 15 minutes
+    #~ # interval pomodoro
+    #~ INTERVAL_WORK = 25 * 60 * 1000 # 25 minutes
+    #~ INTERVAL_BREAK_SHORT = 5 * 60 * 1000 # 5 minutes
+    #~ INTERVAL_BREAK_LONG = 15 * 60 * 1000 # 15 minutes
 
-    # durée Test :
-    #~ INTERVAL_WORK = 2 * 1000 # 25 minutes
-    #~ INTERVAL_BREAK_SHORT = 2 * 1000 # 5 minutes
-    #~ INTERVAL_BREAK_LONG = 5 * 1000 # 15 minutes
+    #~ # durée Test :
+    INTERVAL_WORK = 2 * 1000 # 2 secondes
+    INTERVAL_BREAK_SHORT = 2 * 1000 # 2 secondes
+    INTERVAL_BREAK_LONG = 5 * 1000 # 5 secondes
     
     # Compter le nombre de break
     # au bout de X break court alors réaliser un break long
     longBreakAfterXShort = 3 # long break after 3 short break
-    countBreakShort = 0;
+    countBreakShort = 0
     
     # Chaine info
     stringTempRestant = ''; # mis à jour toutes les X secondes via fncUpdateSystray
@@ -128,6 +128,7 @@ class LightPomodoroSystray(QtGui.QWidget):
         # créer l'action : quitter 
         self.actionQuit = QtGui.QAction(self.tr("&Quit"), self)
         QtCore.QObject.connect(self.actionQuit, QtCore.SIGNAL("triggered()"),	QtGui.qApp, QtCore.SLOT("quit()"))
+        #~ QtCore.QObject.connect(self.actionQuit, QtCore.SIGNAL("triggered()"),	self.fncQuit )
         # créer l'action : afficher fenêtre de dialogue
         self.actionShowDialog = QtGui.QAction(self.tr("&Dialog"), self)
         QtCore.QObject.connect(self.actionShowDialog, QtCore.SIGNAL("triggered()"), self.fncShowDialog )
@@ -152,9 +153,10 @@ class LightPomodoroSystray(QtGui.QWidget):
         QtCore.QObject.connect(self.actionStop, QtCore.SIGNAL("triggered()"), self.fncStop )
         # ajouter les actions dans un menu qui sera associé au systray
         self.menuTrayIcon = QtGui.QMenu(self)
+        self.menuTrayIcon.setTitle (self.tr("LightPomodoro"))
         self.menuTrayIcon.addAction(self.actionQuit)
-        # self.menuTrayIcon.addAction(self.actionShowDialog) @todo
-        self.menuTrayIcon.addAction(self.actionShowAbout)
+        #~ self.menuTrayIcon.addAction(self.actionShowDialog) # @todo : corriger bug qui ferme application quand on ferme fenêtre dialog
+        #~ self.menuTrayIcon.addAction(self.actionShowAbout) # @todo : corriger bug qui ferme application quand on ferme fenêtre about
         self.menuTrayIcon.addSeparator ()
         self.menuTrayIcon.addAction(self.actionStart)
         self.menuTrayIcon.addAction(self.actionPause)
@@ -169,6 +171,12 @@ class LightPomodoroSystray(QtGui.QWidget):
         #~ self.trayIcon.showMessage (self.tr("LightPomodoro"), self.tr("click gauche : start/pause, click milieu : stop, click droit : menu"), QtGui.QSystemTrayIcon.Information, 3000);        
         
 
+    def fncQuit(self):
+        """
+        
+        """    
+        result = QtGui.QMessageBox.question (self, "Confirmer", "Quitter LightPomodoro")
+
     def fncShowDialog(self):
         """
         Afficher la fenêtre de configuration
@@ -179,7 +187,7 @@ class LightPomodoroSystray(QtGui.QWidget):
         """
         Afficher la fenêtre a propos
         """    
-        QtGui.QMessageBox.about(self, self.tr("LightPomodoro"), self.tr("""LightPomodoro - petit applet en pyqt4 avec 25 minutes de travail suivi de 5 minutes de break"""))
+        result = QtGui.QMessageBox.about(None, self.tr("LightPomodoro"), self.tr("""LightPomodoro - petit applet en pyqt4 avec 25 minutes de travail suivi de 5 minutes de break"""))
 
     def fncSystrayClick(self, argActivationReason):
         """
@@ -290,6 +298,11 @@ class LightPomodoroSystray(QtGui.QWidget):
         self.trayIcon.setIcon(self.iconEnd)
         self.trayIcon.setToolTip(self.tr("LightPomodoro, ")+self.tr(messageInfoBreak))
         self.trayIcon.showMessage (self.tr("LightPomodoro"), self.tr(messageInfoBreak), QtGui.QSystemTrayIcon.Information, 3000);
+        
+        # lib-notify des break complémentaire
+        if platform.system() == 'Linux' : 
+            cmd = """notify-send -t 1000000 --urgency=critical --icon=/usr/share/pixmaps/apple-green.png "LightPomodoro" "%s" """%messageInfoBreak
+            os.system(cmd);
 
     def fncEndBreak(self):
         """
@@ -309,6 +322,7 @@ class LightPomodoroSystray(QtGui.QWidget):
         """    
         if self.statut != self.STOP :
             # @todo : calculer temps restant
+            #~ self.stringTempRestant = '@todo'
             pass
         
 
@@ -318,3 +332,4 @@ if __name__ == "__main__":
     dialog = LightPomodoroDialog()
     x = LightPomodoroSystray( dialog )
     sys.exit(app.exec_())		
+    

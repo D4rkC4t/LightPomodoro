@@ -1,7 +1,7 @@
 Note
 ===========
 
-les image png appartiennent au projet http://gitorious.org/tomate/tomate
+les images png appartiennent au projet http://gitorious.org/tomate/tomate
 
 Licence
 ===========

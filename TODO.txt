@@ -1,3 +1,6 @@
-- utiliser libnotify 
-- confirmer quitter
-- bug about
+[ ] confirmer quitter
+[ ] bug about qui ferme application
+[ ] bug dialog qui ferme application
+[ ] bug confirm quit qui ferme application
+
+[x] utiliser en plus libnotify si linux
