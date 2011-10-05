@@ -42,14 +42,14 @@ class LightPomodoroSystray(QtGui.QWidget):
     END_BREAK = 4
     
     # interval pomodoro
-    #~ INTERVAL_WORK = 25 * 60 * 1000 # 25 minutes
-    #~ INTERVAL_BREAK_SHORT = 5 * 60 * 1000 # 5 minutes
-    #~ INTERVAL_BREAK_LONG = 15 * 60 * 1000 # 15 minutes
+    INTERVAL_WORK = 25 * 60 * 1000 # 25 minutes
+    INTERVAL_BREAK_SHORT = 5 * 60 * 1000 # 5 minutes
+    INTERVAL_BREAK_LONG = 15 * 60 * 1000 # 15 minutes
 
-    #~ # durée Test :
-    INTERVAL_WORK = 2 * 1000 # 2 secondes
-    INTERVAL_BREAK_SHORT = 2 * 1000 # 2 secondes
-    INTERVAL_BREAK_LONG = 5 * 1000 # 5 secondes
+    # durée Test :
+    #~ INTERVAL_WORK = 2 * 1000 # 2 secondes
+    #~ INTERVAL_BREAK_SHORT = 2 * 1000 # 2 secondes
+    #~ INTERVAL_BREAK_LONG = 5 * 1000 # 5 secondes
     
     # Compter le nombre de break
     # au bout de X break court alors réaliser un break long
